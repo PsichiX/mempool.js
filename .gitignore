@@ -1,0 +1,5 @@
+.idea
+bin
+intermediate
+node_modules
+npm-debug.log
