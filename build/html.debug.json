@@ -1,0 +1,13 @@
+{
+  "verbose": true,
+  "entry": "../src/mempool.js",
+  "intermediate": "../intermediate/html/debug/mempool.js",
+  "output": "../bin/html/debug/mempool.js",
+  "basedir": "../src/",
+  "defines": {
+    "DEBUG": true,
+    "PLATFORM_HTML": true
+  },
+  "lint": true,
+  "minify": false
+}

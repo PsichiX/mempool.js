@@ -1,0 +1,13 @@
+{
+  "verbose": true,
+  "entry": "../src/mempool.js",
+  "intermediate": "../intermediate/module/release/mempool.js",
+  "output": "../bin/module/release/mempool.min.js",
+  "basedir": "../src/",
+  "defines": {
+    "RELEASE": true,
+    "PLATFORM_MODULE": true
+  },
+  "lint": true,
+  "minify": true
+}
