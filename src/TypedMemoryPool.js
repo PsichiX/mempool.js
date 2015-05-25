@@ -1,5 +1,13 @@
 (function(exports){
 
+	/**
+	 * Typed memory pool manager.
+	 *
+	 * @param {ArrayBufferView} viewConstructor typed array constructor.
+	 * @param {Number} capacity maximum number of chunks that can be acquired from pool.
+	 * @param {Number} chunkSize number of value fields per chunk.
+	 * @constructor
+	 */
 	function TypedMemoryPool(viewConstructor, capacity, chunkSize){
 
 		this._viewConstructor = viewConstructor;
@@ -16,6 +24,12 @@
 	TypedMemoryPool.prototype._chunkSize = 0;
 	TypedMemoryPool.prototype._acquired = 0;
 
+	/**
+	 * Pool chunks constructor.
+	 *
+	 * @class TypedMemoryPool
+	 * @name viewConstructor
+	 */
 	Object.defineProperty(TypedMemoryPool.prototype, 'viewConstructor', {
 
 		get: function(){
@@ -24,6 +38,12 @@
 
 	});
 
+	/**
+	 * Pool chunks capacity.
+	 *
+	 * @class TypedMemoryPool
+	 * @name capacity
+	 */
 	Object.defineProperty(TypedMemoryPool.prototype, 'capacity', {
 
 		get: function(){
@@ -32,6 +52,12 @@
 
 	});
 
+	/**
+	 * Number of value fields per chunk.
+	 *
+	 * @class TypedMemoryPool
+	 * @name chunkSize
+	 */
 	Object.defineProperty(TypedMemoryPool.prototype, 'chunkSize', {
 
 		get: function(){
@@ -40,6 +66,12 @@
 
 	});
 
+	/**
+	 * Number of acquired pool chunks.
+	 *
+	 * @class TypedMemoryPool
+	 * @name acquired
+	 */
 	Object.defineProperty(TypedMemoryPool.prototype, 'acquired', {
 
 		get: function(){
@@ -48,6 +80,12 @@
 
 	});
 
+	/**
+	 * Number of released pool chunks.
+	 *
+	 * @class TypedMemoryPool
+	 * @name released
+	 */
 	Object.defineProperty(TypedMemoryPool.prototype, 'released', {
 
 		get: function(){
@@ -56,6 +94,11 @@
 
 	});
 
+	/**
+	 * Resize pool content.
+	 *
+	 * @param {Number} count new pool capacity.
+	 */
 	TypedMemoryPool.prototype.resize = function(count, chunkSize){
 
 		count = count > 1 ? (count | 0) : 1;
@@ -93,6 +136,9 @@
 
 	};
 
+	/**
+	 * Destroy pool content.
+	 */
 	TypedMemoryPool.prototype.destroy = function(){
 
 		this._viewConstructor = null;
@@ -106,6 +152,11 @@
 
 	};
 
+	/**
+	 * Acquire chunk instance from pool if there are chunks left, or create by new() otherwise.
+	 *
+	 * @returns {ArrayBufferView}
+	 */
 	TypedMemoryPool.prototype.acquire = function(){
 
 		var viewConstructor = this._viewConstructor,
@@ -166,6 +217,11 @@
 
 	};
 
+	/**
+	 * Release chunk to pool.
+	 *
+	 * @param {Object} instance chunk acquired from pool.
+	 */
 	TypedMemoryPool.prototype.release = function(instance){
 
 		var viewConstructor = this._viewConstructor,
@@ -194,6 +250,12 @@
 
 	};
 
+	/**
+	 * Checks if chunk is acquired from pool.
+	 *
+	 * @param {Object} instance chunk to test.
+	 * @returns {Boolean}
+	 */
 	TypedMemoryPool.prototype.isAcquired = function(instance){
 
 		var viewConstructor = this._viewConstructor,

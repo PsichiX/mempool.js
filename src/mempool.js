@@ -5,18 +5,26 @@ global = module.exports;
 //      #ifdef PLATFORM_HTML
 global = window;
 //      #else
-throw new Error('Unknown platform!');
+//          #define var PLATFORM_UNKNOWN = true
 //      #endif
 //  #endif
 
 (function(exports){
 
+	//  #ifndef PLATFORM_UNKNOWN
+
 	var module = {exports: {}};
 
-	// #include_once "MemoryPool.js"
+	//  #include_once "MemoryPool.js"
 	exports.MemoryPool = module.exports.MemoryPool;
 
-	// #include_once "TypedMemoryPool.js"
+	//  #include_once "TypedMemoryPool.js"
 	exports.TypedMemoryPool = module.exports.TypedMemoryPool;
+
+	//  #else
+
+	throw new Error('Unknown platform!');
+
+	//  #endif
 
 })(global);

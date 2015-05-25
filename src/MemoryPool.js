@@ -1,5 +1,12 @@
 (function(exports){
 
+	/**
+	 * Objects memory pool manager.
+	 *
+	 * @param {Object} proto prototype object.
+	 * @param {Number} capacity maximum number of objects that can be acquired from pool.
+	 * @constructor
+	 */
 	function MemoryPool(proto, capacity){
 
 		this._proto = proto;
@@ -9,6 +16,12 @@
 
 	MemoryPool._pools = {};
 
+	/**
+	 * Register memory pool to global container.
+	 *
+	 * @param {String} id pool ID.
+	 * @param {MemoryPool} pool instance.
+	 */
 	MemoryPool.register = function(id, pool){
 
 		//  #ifdef DEBUG
@@ -23,6 +36,12 @@
 
 	};
 
+	/**
+	 * Unregister memory pool from global container.
+	 *
+	 * @param {String} id pool ID.
+	 * @param {Boolean} destroy determines if pool have to be destroyed.
+	 */
 	MemoryPool.unregister = function(id, destroy){
 
 		//  #ifdef DEBUG
@@ -39,6 +58,12 @@
 
 	};
 
+	/**
+	 * Get memory pool from global container.
+	 *
+	 * @param {String} id pool ID.
+	 * @returns {MemoryPool|null}
+	 */
 	MemoryPool.get = function(id){
 
 		//  #ifdef DEBUG
@@ -54,6 +79,12 @@
 
 	};
 
+	/**
+	 * Get prototype name.
+	 *
+	 * @param {Object} proto prototype object.
+	 * @returns {String}
+	 */
 	MemoryPool.getProtoName = function(proto){
 
 		var funcNameRegex = /function (.{1,})\(/;
@@ -69,6 +100,12 @@
 	MemoryPool.prototype._capacity = 0;
 	MemoryPool.prototype._acquired = 0;
 
+	/**
+	 * Pool objects prototype.
+	 *
+	 * @class MemoryPool
+	 * @name proto
+	 */
 	Object.defineProperty(MemoryPool.prototype, 'proto', {
 
 		get: function(){
@@ -77,6 +114,12 @@
 
 	});
 
+	/**
+	 * Pool objects capacity.
+	 *
+	 * @class MemoryPool
+	 * @name capacity
+	 */
 	Object.defineProperty(MemoryPool.prototype, 'capacity', {
 
 		get: function(){
@@ -85,6 +128,12 @@
 
 	});
 
+	/**
+	 * Number of acquired pool objects.
+	 *
+	 * @class MemoryPool
+	 * @name acquired
+	 */
 	Object.defineProperty(MemoryPool.prototype, 'acquired', {
 
 		get: function(){
@@ -93,6 +142,12 @@
 
 	});
 
+	/**
+	 * Number of released pool objects.
+	 *
+	 * @class MemoryPool
+	 * @name released
+	 */
 	Object.defineProperty(MemoryPool.prototype, 'released', {
 
 		get: function(){
@@ -101,6 +156,11 @@
 
 	});
 
+	/**
+	 * Resize pool content.
+	 *
+	 * @param {Number} count new pool capacity.
+	 */
 	MemoryPool.prototype.resize = function(count){
 
 		count = count > 1 ? (count | 0) : 1;
@@ -124,6 +184,9 @@
 
 	};
 
+	/**
+	 * Destroy pool content.
+	 */
 	MemoryPool.prototype.destroy = function(){
 
 		MemoryPool.unregister(MemoryPool.getProtoName(this._proto));
@@ -136,6 +199,11 @@
 
 	};
 
+	/**
+	 * Acquire object instance from pool if there are instances left, or create by new() otherwise.
+	 *
+	 * @returns {Object}
+	 */
 	MemoryPool.prototype.acquire = function(){
 
 		var proto    = this._proto,
@@ -196,6 +264,12 @@
 
 	};
 
+	/**
+	 * Acquire object instance from pool if there are instances left, or create by new() otherwise.
+	 * Constructor of new object will be automatically called with provided arguments.
+	 *
+	 * @returns {Object}
+	 */
 	MemoryPool.prototype.factory = function(){
 
 		var proto = this._proto;
@@ -210,6 +284,11 @@
 
 	};
 
+	/**
+	 * Release instance to pool.
+	 *
+	 * @param {Object} instance instance acquired from pool.
+	 */
 	MemoryPool.prototype.release = function(instance){
 
 		var proto = this._proto,
@@ -238,6 +317,12 @@
 
 	};
 
+	/**
+	 * Checks if instance is acquired from pool.
+	 *
+	 * @param {Object} instance instance to test.
+	 * @returns {Boolean}
+	 */
 	MemoryPool.prototype.isAcquired = function(instance){
 
 		var proto = this._proto,

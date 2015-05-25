@@ -1,0 +1,29 @@
+{
+  "name": "mempool.js",
+  "version": "1.0.0",
+  "description": "JavaScript true memory pooling solution.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "compiler.js": "^1.0.9"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PsichiX/mempool.js.git"
+  },
+  "keywords": [
+    "memory",
+    "pooling"
+  ],
+  "author": "Patryk 'PsichiX' Budzynski <psichix@gmail.com> (http://psichix.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PsichiX/mempool.js/issues"
+  },
+  "homepage": "https://github.com/PsichiX/mempool.js#readme"
+}
