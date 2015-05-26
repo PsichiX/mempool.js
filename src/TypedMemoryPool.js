@@ -245,6 +245,9 @@
 				table[(pointer / 8) | 0] &= ~mask;
 				this._CATablePointer = pointer;
 				this._acquired--;
+				//  #ifdef DEBUG
+				delete instance._creationStackTrace;
+				//  #endif
 			}
 		}
 

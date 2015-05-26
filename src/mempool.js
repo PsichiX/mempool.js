@@ -21,6 +21,9 @@ global = window;
 	//  #include_once "TypedMemoryPool.js"
 	exports.TypedMemoryPool = module.exports.TypedMemoryPool;
 
+	//  #include_once "BufferMemoryPool.js"
+	exports.BufferMemoryPool = module.exports.BufferMemoryPool;
+
 	//  #else
 
 	throw new Error('Unknown platform!');
