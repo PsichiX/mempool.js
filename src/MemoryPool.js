@@ -225,7 +225,7 @@
 		}
 		//  #endif
 		if (this._acquired < this._capacity){
-			do{
+			do {
 				mask = 1 << (current % 8);
 				status = table[current] & mask;
 				if (status){
@@ -241,7 +241,7 @@
 					stackTrace = '';
 					try {
 						throw new Error();
-					} catch (err){
+					} catch (err) {
 						stack = err.stack;
 						instance._creationStackTrace = stack.substring(stack.indexOf('at'));
 					}
@@ -254,7 +254,7 @@
 		stackTrace = '';
 		try {
 			throw new Error();
-		} catch (err){
+		} catch (err) {
 			stack = err.stack;
 			stackTrace = stack.substring(stack.indexOf('at'));
 		}
@@ -280,6 +280,27 @@
 		//  #endif
 		var instance = this.acquire();
 		proto.constructor.apply(instance, arguments);
+		return instance;
+
+	};
+
+	/**
+	 * Acquire object instance from pool if there are instances left, or create by new() otherwise.
+	 * Constructor of new object will be automatically called with arguments provided in `args` parameter.
+	 *
+	 * @param {Array} args array of arguments to use as new instance constructor parameters.
+	 * @returns {Object}
+	 */
+	MemoryPool.prototype.factoryArgs = function(args){
+
+		var proto = this._proto;
+		//  #ifdef DEBUG
+		if (!proto){
+			throw new Error('MemoryPool::factoryArgs() | Objects prototype is not specified!');
+		}
+		//  #endif
+		var instance = this.acquire();
+		proto.constructor.apply(instance, args);
 		return instance;
 
 	};

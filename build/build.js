@@ -6,11 +6,11 @@ var argv     = process.argv,
 		    './module.debug.json',
 		    './module.release.json'
 	    ],
-	    html: [
+	    html:   [
 		    './html.debug.json',
 		    './html.release.json'
 	    ],
-	    all: [
+	    all:    [
 		    './module.debug.json',
 		    './module.release.json',
 		    './html.debug.json',

@@ -178,7 +178,7 @@
 		}
 		// #endif
 		if (this._acquired < this._capacity){
-			do{
+			do {
 				mask = 1 << (current % 8);
 				status = table[current] & mask;
 				if (status){
@@ -194,7 +194,7 @@
 					stackTrace = '';
 					try {
 						throw new Error();
-					} catch (err){
+					} catch (err) {
 						stack = err.stack;
 						instance._creationStackTrace = stack.substring(stack.indexOf('at'));
 					}
@@ -207,7 +207,7 @@
 		stackTrace = '';
 		try {
 			throw new Error();
-		} catch (err){
+		} catch (err) {
 			stack = err.stack;
 			stackTrace = stack.substring(stack.indexOf('at'));
 		}

@@ -1,15 +1,15 @@
-var global;
-//  #ifdef PLATFORM_MODULE
-global = module.exports;
-//  #else
-//      #ifdef PLATFORM_HTML
-global = window;
-//      #else
-//          #define var PLATFORM_UNKNOWN = true
-//      #endif
-//  #endif
+(function(){
 
-(function(exports){
+	var exports;
+	//  #ifdef PLATFORM_MODULE
+	exports = module.exports;
+	//  #else
+	//      #ifdef PLATFORM_HTML
+	exports = window;
+	//      #else
+	//          #define var PLATFORM_UNKNOWN = true
+	//      #endif
+	//  #endif
 
 	//  #ifndef PLATFORM_UNKNOWN
 
@@ -21,8 +21,9 @@ global = window;
 	//  #include_once "TypedMemoryPool.js"
 	exports.TypedMemoryPool = module.exports.TypedMemoryPool;
 
-	//  #include_once "BufferMemoryPool.js"
-	exports.BufferMemoryPool = module.exports.BufferMemoryPool;
+	// TODO
+	//  include_once "BufferMemoryPool.js"
+	//exports.BufferMemoryPool = module.exports.BufferMemoryPool;
 
 	//  #else
 
@@ -30,4 +31,4 @@ global = window;
 
 	//  #endif
 
-})(global);
+})();

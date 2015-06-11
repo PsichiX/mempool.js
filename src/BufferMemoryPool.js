@@ -88,14 +88,17 @@
 	BufferMemoryPool.prototype.acquire = function(bytesCount){
 
 		bytesCount = bytesCount > 4 ? BufferMemoryPool.alignTo4(bytesCount | 0) | 0 : 4;
-		var acquired       = this._acquired,
+		var bytesCount4    = bytesCount >> 2,
+		    acquired       = this._acquired,
 		    capacity       = this._capacity,
 		    acquireMap     = this._acquireMap,
 		    acquireMapSize = this._acquireMapSize,
 		    pointer        = 0,
 		    currentOffset4,
 		    currentCount4,
-		    emptySector    = 0,
+		    nextOffset4,
+		    nextCount4,
+		    wrongSector    = 0,
 		    stackTrace,
 		    stack;
 		if (acquired + bytesCount <= capacity){
@@ -104,20 +107,73 @@
 				acquireMap[0] = 0;
 				acquireMap[1] = bytesCount >> 2;
 			} else {
-				//pointer = // TODO
+				this.defragment();
+				pointer = 0;
+				do {
+					currentOffset4 = acquireMap[pointer];
+					wrongSector = currentOffset4 & (1 << 15);
+					currentCount4 = acquireMap[pointer + 1];
+					if (bytesCount4 <= currentCount4){
+						nextOffset4 = acquireMap[pointer + 2];
+						nextCount4 = acquireMap[pointer + 3];
+					}
+				} while (wrongSector);
 			}
 		}
 		// #ifdef DEBUG
 		stackTrace = '';
 		try {
 			throw new Error();
-		} catch (err){
+		} catch (err) {
 			stack = err.stack;
 			stackTrace = stack.substring(stack.indexOf('at'));
 		}
 		console.error('BufferMemoryPool::acquire() | Buffer created outside of pool!\nStackTrace: ' + stackTrace);
 		// #endif
 		return new ArrayBuffer(bytesCount);
+
+	};
+
+	BufferMemoryPool.prototype.defragment = function(){
+
+		var size = this._acquireMapSize;
+		if (size > 2){
+			this._quickSort(0, size - 1);
+			return true;
+		}
+		return false;
+
+	};
+
+	BufferMemoryPool.prototype._quickSort = function(left, right){
+
+		var acquireMap = this._acquireMap,
+		    index      = this._partition(left, right);
+		if (left < index - 1){
+			this._quickSort(left, index - 1);
+		}
+		if (index < right){
+			this._quickSort(index, right);
+		}
+
+	};
+
+	BufferMemoryPool.prototype._partition = function(left, right){
+
+		var acquireMap = this._acquireMap,
+		    p          = acquireMap[((right + left) >> 2) << 1],
+		    i          = left,
+		    j          = right;
+		while (i <= j){
+			while (acquireMap[i] < p){
+				i += 2;
+			}
+			while (acquireMap[j] > p){
+				j -= 2;
+			}
+			if (){
+			}
+		}
 
 	};
 

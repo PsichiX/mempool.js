@@ -1,5 +1,5 @@
 var scriptPaths     = {
-	    debug: 'debug/mempool.js',
+	    debug:   'debug/mempool.js',
 	    release: 'release/mempool.min.js'
     },
     argv            = process.argv,
