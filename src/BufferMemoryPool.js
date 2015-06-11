@@ -171,8 +171,7 @@
 			while (acquireMap[j] > p){
 				j -= 2;
 			}
-			if (){
-			}
+
 		}
 
 	};

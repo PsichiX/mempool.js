@@ -368,7 +368,7 @@
 		pointer = pool.indexOf(instance);
 		if (pointer >= 0){
 			mask = 1 << (pointer % 8);
-			return table[(pointer / 8) | 0] & mask;
+			return !!(table[(pointer / 8) | 0] & mask);
 		}
 		return false;
 

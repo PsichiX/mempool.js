@@ -12,23 +12,23 @@
 	//  #endif
 
 	//  #ifndef PLATFORM_UNKNOWN
+	(function(exports){
 
-	var module = {exports: {}};
+		var module = {exports: {}};
 
-	//  #include_once "MemoryPool.js"
-	exports.MemoryPool = module.exports.MemoryPool;
+		//  #include_once "MemoryPool.js"
+		exports.MemoryPool = module.exports.MemoryPool;
 
-	//  #include_once "TypedMemoryPool.js"
-	exports.TypedMemoryPool = module.exports.TypedMemoryPool;
+		//  #include_once "TypedMemoryPool.js"
+		exports.TypedMemoryPool = module.exports.TypedMemoryPool;
 
-	// TODO
-	//  include_once "BufferMemoryPool.js"
-	//exports.BufferMemoryPool = module.exports.BufferMemoryPool;
+		// TODO
+		//  include_once "BufferMemoryPool.js"
+		//exports.BufferMemoryPool = module.exports.BufferMemoryPool;
 
+	})(exports);
 	//  #else
-
 	throw new Error('Unknown platform!');
-
 	//  #endif
 
 })();
