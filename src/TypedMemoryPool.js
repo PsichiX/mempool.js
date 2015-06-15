@@ -180,7 +180,7 @@
 		if (this._acquired < this._capacity){
 			do {
 				mask = 1 << (current % 8);
-				status = table[current] & mask;
+				status = table[(current / 8) | 0] & mask;
 				if (status){
 					if (++current >= capacity){
 						current = 0;
