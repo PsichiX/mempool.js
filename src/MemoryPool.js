@@ -87,9 +87,17 @@
 	 */
 	MemoryPool.getProtoName = function(proto){
 
-		var funcNameRegex = /function (.{1,})\(/;
-		var results = (funcNameRegex).exec(proto.constructor.toString());
-		return (results && results.length > 1) ? results[1] : '';
+		if (proto){
+			var funcNameRegex = /function (.{1,})\(/;
+			var results = (funcNameRegex).exec(proto.constructor.toString());
+			return (results && results.length > 1) ? results[1] : '';
+		} else {
+			if (proto === null){
+				return 'null';
+			} else {
+				return typeof proto;
+			}
+		}
 
 	};
 
@@ -225,7 +233,7 @@
 		}
 		//  #endif
 		if (this._acquired < this._capacity){
-			do {
+			do{
 				mask = 1 << (current % 8);
 				status = table[(current / 8) | 0] & mask;
 				if (status){
@@ -241,7 +249,7 @@
 					stackTrace = '';
 					try {
 						throw new Error();
-					} catch (err) {
+					} catch (err){
 						stack = err.stack;
 						instance._creationStackTrace = stack.substring(stack.indexOf('at'));
 					}
@@ -254,7 +262,7 @@
 		stackTrace = '';
 		try {
 			throw new Error();
-		} catch (err) {
+		} catch (err){
 			stack = err.stack;
 			stackTrace = stack.substring(stack.indexOf('at'));
 		}
